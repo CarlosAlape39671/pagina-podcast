@@ -1,9 +1,9 @@
-# Noticiero Regional — Radio en vivo y actualidad
+# EjePresse Radio — Noticiero web con radio en vivo
 
-Sitio web de un noticiero regional con radio en vivo (TuneIn) y actualidad en
-video (YouTube). Tres apartados públicos —**Inicio**, **Actualidad** y
-**Quiénes somos**— y una ruta oculta `/admin` protegida por login para que el
-cliente publique contenido.
+Sitio web del noticiero regional **EjePresse Radio**, con radio en vivo (TuneIn) y
+actualidad en video (YouTube). Tres apartados públicos —**Inicio**, **Actualidad**
+y **Quiénes somos**— y una ruta oculta `/admin` protegida por login para que solo
+el cliente publique contenido.
 
 ## Stack
 
@@ -13,12 +13,18 @@ cliente publique contenido.
 - Supabase (datos + autenticación, con RLS)
 - Embeds: TuneIn (radio) y YouTube con carga diferida tipo *facade*
 
+## Documentación
+
+- [Manual de usuario](docs/manual-de-usuario.md) — guía para visitantes y para el administrador.
+- [Manual técnico](docs/manual-tecnico.md) — arquitectura, modelo de datos, puesta en marcha y **diagramas** (clases, secuencia, estados, actividades y flujo).
+- [Requisitos](docs/Requisitos_Plataforma_Podcast.md) — especificación (fuente de verdad).
+
 ## Puesta en marcha
 
 ```bash
 npm install
 cp .env.example .env.local   # completa las claves de Supabase
-npm run dev
+npm run dev                  # http://localhost:5173
 ```
 
 Variables de entorno (`.env.local`):
@@ -26,6 +32,12 @@ Variables de entorno (`.env.local`):
 ```
 VITE_SUPABASE_URL=...
 VITE_SUPABASE_ANON_KEY=...
+```
+
+Componentes de shadcn/ui (cuando se necesiten):
+
+```bash
+npx shadcn@latest add button input card textarea label
 ```
 
 ## Base de datos
@@ -37,22 +49,32 @@ y **escritura solo para usuarios autenticados** (la cuenta del cliente).
 ## Estructura
 
 ```
-src/
-├── config/site.ts        # TuneIn, WhatsApp, redes, contacto
-├── lib/                  # supabase.ts, youtube.ts, utils.ts
-├── types/                # Post, Ad, ...
-├── data/                 # consultas a Supabase (posts, ads)
-├── hooks/                # useAuth, usePosts
-├── context/              # AuthProvider
-├── components/
-│   ├── ui/               # shadcn/ui
-│   ├── layout/           # Navbar, Footer, RadioBar, Layout
-│   ├── home/             # Destacados, ZonaPublicidad, QrWhatsApp
-│   ├── actualidad/       # PostCard, YouTubeEmbed (facade)
-│   └── admin/            # LoginForm, PostForm, PostList
-└── pages/                # Inicio, Actualidad, QuienesSomos, admin/Admin
+pagina-podcast/
+├── docs/                     # documentación y recursos del cliente
+│   ├── manual-de-usuario.md
+│   ├── manual-tecnico.md
+│   ├── Requisitos_Plataforma_Podcast.md
+│   └── assets/               # identidad/, publicidad/, qr/, diagramas/
+├── mockups/                  # mockups de referencia (Figma)
+├── public/                   # estáticos servidos tal cual
+├── supabase/schema.sql       # tablas + políticas RLS
+└── src/
+    ├── config/site.ts        # TuneIn, WhatsApp, redes, contacto
+    ├── lib/                  # supabase.ts, youtube.ts, utils.ts
+    ├── types/                # Post, Ad, ...
+    ├── data/                 # consultas a Supabase (posts, ads)
+    ├── hooks/                # useAuth, usePosts
+    ├── context/              # AuthProvider
+    ├── components/
+    │   ├── ui/               # shadcn/ui
+    │   ├── layout/           # Navbar, Footer, RadioBar, Layout
+    │   ├── home/             # Destacados, ZonaPublicidad, QrWhatsApp
+    │   ├── actualidad/       # PostCard, YouTubeEmbed (facade)
+    │   └── admin/            # LoginForm, PostForm, PostList
+    └── pages/                # Inicio, Actualidad, QuienesSomos, admin/Admin
 ```
 
 > Estado actual: **scaffold**. La infraestructura (router, layout, cliente de
 > Supabase, auth, capa de datos, helpers y el embed de YouTube) está lista; el
 > contenido de cada pantalla son *stubs* a desarrollar pantalla por pantalla.
+> Ver pendientes en el [Manual técnico](docs/manual-tecnico.md#15-estado-actual-y-pendientes).
