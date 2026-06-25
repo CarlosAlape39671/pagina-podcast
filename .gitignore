@@ -27,3 +27,7 @@ dist-ssr
 *.sln
 *.sw?
 Thumbs.db
+
+# Diagramas: se versionan los SVG; los PNG se conservan solo en local
+# (informes Word / presentaciones) y son regenerables desde el manual técnico.
+docs/assets/diagramas/png/

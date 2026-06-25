@@ -7,9 +7,13 @@ un visor con soporte Mermaid.
 
 ```
 diagramas/
-├── svg/   # vectorial (recomendado para web y documentos)
-└── png/   # mapa de bits 2x (para presentaciones / Word)
+├── svg/   # vectorial — versionado en el repositorio
+└── png/   # mapa de bits 2x — NO versionado (.gitignore); local, regenerable
 ```
+
+> Los **SVG** se versionan; los **PNG** quedan fuera de git (ver `.gitignore`) y se
+> conservan en local para informes Word / presentaciones. Si clonas el repo, la
+> carpeta `png/` no estará: regenérala con el comando de más abajo.
 
 | Archivo | Diagrama |
 |---|---|

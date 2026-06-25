@@ -368,10 +368,10 @@ Ubicados en `docs/assets/`:
 > y se renderizan automáticamente en GitHub y en visores compatibles (VS Code con
 > la extensión *Markdown Preview Mermaid*, GitLab, Obsidian, etc.).
 >
-> También están **exportados a PNG y SVG** en
-> [`assets/diagramas/`](assets/diagramas/) (`png/` y `svg/`), por si necesitas
-> incrustarlos en informes o abrirlos fuera de un visor con soporte Mermaid.
-> Para regenerarlos, ver [`assets/diagramas/README.md`](assets/diagramas/README.md).
+> También están **exportados** en [`assets/diagramas/`](assets/diagramas/): los
+> **SVG** se versionan en el repositorio; los **PNG** (2x, para informes Word /
+> presentaciones) se conservan solo en local y son regenerables. Ver
+> [`assets/diagramas/README.md`](assets/diagramas/README.md).
 
 ### 14.1 Diagrama de componentes (arquitectura del frontend)
 
