@@ -1,18 +1,23 @@
 import type { Post } from '@/types';
+import { YouTubeEmbed } from './YouTubeEmbed';
+import { formatDate } from '@/lib/date';
 
 interface PostCardProps {
   post: Post;
 }
 
-/**
- * Tarjeta de publicación: video (YouTubeEmbed), título, descripción y fecha (RF-03).
- * STUB — se implementará al desarrollar el apartado Actualidad.
- */
+/** Publicación: video (YouTubeEmbed), fecha, título y descripción (RF-03). */
 export function PostCard({ post }: PostCardProps) {
   return (
-    <article className="rounded-lg border p-4">
-      {/* TODO: <YouTubeEmbed video={post.youtube_id} title={post.title ?? ''} /> */}
-      <p className="text-sm text-muted-foreground">PostCard (stub) — {post.id}</p>
+    <article className="space-y-3">
+      <YouTubeEmbed video={post.youtube_id} title={post.title ?? undefined} />
+      <div className="space-y-1">
+        <p className="text-xs text-muted-foreground">{formatDate(post.published_at)}</p>
+        {post.title && <h2 className="text-lg font-semibold leading-snug">{post.title}</h2>}
+        {post.description && (
+          <p className="text-sm text-muted-foreground">{post.description}</p>
+        )}
+      </div>
     </article>
   );
 }

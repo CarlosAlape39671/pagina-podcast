@@ -9,7 +9,7 @@ import { siteConfig } from '@/config/site';
  */
 export function RadioBar() {
   const [started, setStarted] = useState(false);
-  const { stationName, tuneInEmbedUrl } = siteConfig.radio;
+  const { stationName, slogan, tuneInEmbedUrl } = siteConfig.radio;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t bg-background/95 backdrop-blur">
@@ -18,7 +18,7 @@ export function RadioBar() {
           <button
             type="button"
             onClick={() => setStarted(true)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"
             aria-label={`Reproducir ${stationName}`}
           >
             <Play className="h-5 w-5" />
@@ -34,11 +34,17 @@ export function RadioBar() {
         )}
 
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold">{stationName}</p>
-          <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <span className="inline-block h-2 w-2 rounded-full bg-red-600" aria-hidden />
-            EN VIVO
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="truncate text-sm font-bold text-foreground">{stationName}</p>
+            <span className="flex shrink-0 items-center gap-1 text-[11px] font-bold uppercase tracking-wide text-red-600">
+              <span
+                className="inline-block h-2 w-2 rounded-full bg-red-600 motion-safe:animate-blink"
+                aria-hidden
+              />
+              Live
+            </span>
+          </div>
+          <p className="truncate text-xs text-muted-foreground">{slogan}</p>
         </div>
       </div>
     </div>

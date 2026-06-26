@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, Radio } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
 
@@ -23,11 +23,13 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
       <nav className="container flex h-14 items-center justify-between">
-        <NavLink to="/" className="flex items-center gap-2 font-semibold" onClick={() => setOpen(false)}>
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-primary text-primary-foreground">
-            <Radio className="h-4 w-4" />
-          </span>
-          <span>{siteConfig.name}</span>
+        <NavLink
+          to="/"
+          className="flex items-center"
+          onClick={() => setOpen(false)}
+          aria-label={`${siteConfig.name} — Inicio`}
+        >
+          <img src={siteConfig.assets.logo} alt={siteConfig.name} className="h-8 w-auto" />
         </NavLink>
 
         {/* Desktop / tablet */}

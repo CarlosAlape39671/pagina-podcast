@@ -6,10 +6,10 @@ import { RadioBar } from './RadioBar';
 /** Shell de los apartados públicos: Navbar + contenido + Footer + barra de radio fija. */
 export function Layout() {
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    // pb-16: reserva el alto de la barra de radio fija para que no tape el footer (RF-02)
+    <div className="flex min-h-screen flex-col bg-background pb-16 text-foreground">
       <Navbar />
-      {/* pb-20: deja espacio para la barra de radio fija (RF-02) */}
-      <main className="container flex-1 py-6 pb-24">
+      <main className="container flex-1 py-6">
         <Outlet />
       </main>
       <Footer />

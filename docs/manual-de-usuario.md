@@ -10,7 +10,7 @@
 | | |
 |---|---|
 | **Sitio** | Noticiero web con radio en vivo y actualidad (EjePresse Radio) |
-| **Versión del documento** | 1.0 |
+| **Versión del documento** | 1.1 |
 | **Fecha** | 23 de junio de 2026 |
 | **Dirigido a** | Visitantes y administrador (cliente) |
 
@@ -77,8 +77,8 @@ desplazamiento horizontal.
 
 ### 3.1 Escuchar la radio en vivo
 
-1. En la **barra inferior** verás el nombre de la emisora y el indicador
-   🔴 **EN VIVO**.
+1. En la **barra inferior** verás el nombre de la emisora (**Eje Presse Radio**),
+   su eslogan y el indicador **🔴 LIVE** (parpadea mientras la señal está al aire).
 2. Pulsa el botón **▶ (play)** para iniciar la transmisión.
 3. La radio **sigue sonando** aunque cambies de apartado.
 
@@ -165,12 +165,13 @@ equipo compartido.
 |---|---|
 | Navegación entre los 3 apartados | ✅ Disponible |
 | Menú responsive (hamburguesa en móvil) | ✅ Disponible |
-| Barra de radio fija con play / EN VIVO | ✅ Estructura lista (falta enlazar la señal real de TuneIn) |
-| Inicio de sesión en `/admin` | ✅ Funcional (requiere configurar Supabase) |
-| Reproductor de video diferido (16:9) | ✅ Componente listo |
-| Lista de Actualidad, Destacados, Publicidad, QR | 🛠️ En desarrollo |
-| Publicar / editar / eliminar noticias | 🛠️ En desarrollo |
-| Contenido de Quiénes somos | 🛠️ En desarrollo |
+| Barra de radio fija con play / LIVE | ✅ Disponible (falta enlazar la señal real de TuneIn) |
+| Inicio de sesión en `/admin` | ✅ Funcional (Supabase configurado y verificado) |
+| Reproductor de video diferido (16:9) | ✅ Disponible |
+| **Inicio**: destacados, publicidad y QR de WhatsApp | ✅ Disponible |
+| **Actualidad**: lista de publicaciones en video | ✅ Disponible |
+| Publicar / editar / eliminar noticias (admin) | 🛠️ En desarrollo |
+| Contenido de **Quiénes somos** | 🛠️ En desarrollo |
 
 A medida que avancemos pantalla por pantalla, estas funciones quedarán
 completamente operativas.
@@ -200,4 +201,4 @@ No. La barra de radio es fija y la emisión continúa mientras navegas.
 
 ---
 
-<p align="center"><sub>EjePresse Radio · Manual de Usuario v1.0 · 23-06-2026</sub></p>
+<p align="center"><sub>EjePresse Radio · Manual de Usuario v1.1 · 23-06-2026</sub></p>

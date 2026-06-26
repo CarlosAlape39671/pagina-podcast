@@ -2,11 +2,18 @@
 // Reemplaza los valores de ejemplo por los reales del cliente.
 
 export const siteConfig = {
-  name: 'Noticiero Regional',
+  name: 'EjePresse Radio',
   tagline: 'Radio en vivo y actualidad',
 
+  // Assets servidos desde public/ (ver también docs/assets/).
+  assets: {
+    logo: '/logo-ejepresse-horizontal.png',
+    whatsappQr: '/qr-canal-whatsapp.jpg',
+  },
+
   radio: {
-    stationName: 'Radio Noticiero 99.9 FM',
+    stationName: 'Eje Presse Radio',
+    slogan: 'La radio différente',
     // URL del reproductor embebido de TuneIn (Share → Embed en TuneIn).
     tuneInEmbedUrl: 'https://tunein.com/embed/player/sXXXXXXX/',
   },

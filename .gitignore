@@ -11,6 +11,9 @@ dist
 dist-ssr
 *.local
 
+# TypeScript (build incremental)
+*.tsbuildinfo
+
 # Variables de entorno (claves) — NUNCA versionar
 .env
 .env.local

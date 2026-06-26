@@ -10,7 +10,7 @@
 | | |
 |---|---|
 | **Proyecto** | Noticiero web · Radio en vivo y actualidad (EjePresse Radio) |
-| **Versión del documento** | 1.1 |
+| **Versión del documento** | 1.3 |
 | **Fecha** | 23 de junio de 2026 |
 | **Estado del proyecto** | Scaffold (estructura base + infraestructura lista; pantallas en desarrollo) |
 | **Fuente de verdad** | [`Requisitos_Plataforma_Podcast.md`](Requisitos_Plataforma_Podcast.md) |
@@ -118,11 +118,14 @@ pagina-podcast/                  (raíz del proyecto)
 │   └── assets/
 │       ├── identidad/           # logos de EjePresse Radio
 │       ├── publicidad/          # piezas publicitarias
-│       └── qr/                  # QR del canal de WhatsApp
+│       ├── qr/                  # QR del canal de WhatsApp
+│       └── diagramas/           # diagramas exportados (svg versionado · png local)
 ├── mockups/                     # mockups de referencia (Figma)
-├── public/                      # estáticos servidos tal cual (favicon)
+├── public/                      # estáticos servidos en /: logo, qr, publicidad/
 ├── supabase/
-│   └── schema.sql               # tablas + políticas RLS
+│   ├── schema.sql               # tablas + políticas RLS
+│   ├── seed_ads.sql             # siembra de publicidad
+│   └── seed_posts.sql           # publicaciones de ejemplo (opcional)
 ├── src/
 │   ├── main.tsx                 # entrypoint (BrowserRouter)
 │   ├── App.tsx                  # rutas + AuthProvider
@@ -131,17 +134,19 @@ pagina-podcast/                  (raíz del proyecto)
 │   ├── lib/
 │   │   ├── supabase.ts          # cliente de Supabase
 │   │   ├── youtube.ts           # extrae ID y construye embed/miniatura
-│   │   └── utils.ts             # cn() (clsx + tailwind-merge)
+│   │   ├── utils.ts             # cn() (clsx + tailwind-merge)
+│   │   └── date.ts              # formatea fechas (es-CO)
 │   ├── types/index.ts           # Post, Ad, PostInput, AdInput
 │   ├── data/
 │   │   ├── posts.ts             # CRUD de publicaciones
 │   │   └── ads.ts               # CRUD de publicidad
 │   ├── hooks/
 │   │   ├── useAuth.ts           # consume el contexto de auth
-│   │   └── usePosts.ts          # carga publicaciones + refresh
+│   │   ├── usePosts.ts          # carga publicaciones + refresh
+│   │   └── useAds.ts            # carga publicidad activa
 │   ├── context/AuthProvider.tsx # sesión Supabase (signIn/signOut)
 │   ├── components/
-│   │   ├── ui/                  # shadcn/ui (se agregan por CLI)
+│   │   ├── ui/                  # shadcn/ui (button, input, card, textarea, label)
 │   │   ├── layout/              # Navbar, Footer, RadioBar, Layout
 │   │   ├── home/                # Destacados, ZonaPublicidad, QrWhatsApp
 │   │   ├── actualidad/          # PostCard, YouTubeEmbed (facade)
@@ -163,7 +168,11 @@ pagina-podcast/                  (raíz del proyecto)
 
 ## 5. Requisitos previos
 
-- **Node.js** ≥ 18 y **npm** ≥ 9.
+- **Node.js ≥ 20 (LTS)** recomendado y **npm ≥ 9**.
+  > Con **Node 18.x** el proyecto compila y corre, pero hay limitaciones de
+  > herramientas: el CLI `shadcn@latest` requiere Node ≥ 18.18 (en Node 18.14 los
+  > componentes se añadieron a mano, ver §6) y `@supabase/supabase-js` ya marca
+  > Node 18 como obsoleto. Si puedes, usa Node 20+.
 - Una cuenta y un proyecto en **[Supabase](https://supabase.com)**.
 - (Opcional) **Git** para control de versiones.
 
@@ -193,14 +202,19 @@ npm run lint       # chequeo de tipos (tsc --noEmit)
 
 ### shadcn/ui
 
-`components.json` ya está configurado (alias `@`, tema con CSS variables). Para
-agregar componentes:
+`components.json` ya está configurado (alias `@`, tema con CSS variables). Ya están
+incluidos los componentes base **`button`, `input`, `textarea`, `label` y `card`**
+en `src/components/ui/`. Para agregar más:
 
 ```bash
-npx shadcn@latest add button input card label textarea
+npx shadcn@latest add dialog dropdown-menu sonner
 ```
 
-Se instalarán en `src/components/ui/`.
+> **Node < 18.18:** el CLI `shadcn@latest` no arranca (usa `execa`, que requiere
+> Node ≥ 18.18). En ese caso, o bien actualizas Node a 20+, o copias el código del
+> componente desde [ui.shadcn.com](https://ui.shadcn.com) a `src/components/ui/` e
+> instalas su dependencia Radix si la tuviera (así se añadieron los base:
+> `@radix-ui/react-slot` para `button` y `@radix-ui/react-label` para `label`).
 
 ---
 
@@ -341,11 +355,13 @@ Ubicados en `docs/assets/`:
 | `publicidad/` | Piezas publicitarias (banners) de muestra. |
 | `qr/` | QR del canal de WhatsApp. |
 
-> **Nota:** hoy son material de referencia en `docs/`. Para que la app los use:
-> el **logo** debería ir a `public/` (o `src/assets/`) y referenciarse en el
-> Navbar; el **QR** a `public/` para el bloque de Inicio; las **piezas de
-> publicidad** se cargan como registros de la tabla `ads` (campo `image_url`),
-> idealmente subidas a **Supabase Storage** o a un hosting/CDN.
+> **Integración (hecho):** los assets que usa la app se copiaron a `public/`:
+> el **logo** (`/logo-ejepresse-horizontal.png`) se muestra en el Navbar y el **QR**
+> (`/qr-canal-whatsapp.jpg`) en el bloque de Inicio. Las **piezas de publicidad**
+> se sirven desde `public/publicidad/` y se referencian como registros de la tabla
+> `ads` (campo `image_url`); para sembrarlas está `supabase/seed_ads.sql` (a futuro,
+> idealmente Supabase Storage o CDN). Las copias en `docs/assets/` quedan como
+> referencia de documentación.
 
 ---
 
@@ -717,7 +733,7 @@ flowchart TD
 
 ## 15. Estado actual y pendientes
 
-### ✅ Hecho (scaffold + infraestructura)
+### ✅ Hecho (scaffold + puesta a punto + Inicio y Actualidad)
 
 - Proyecto Vite + TS + Tailwind + shadcn/ui configurado y enrutado.
 - Cliente de Supabase, contexto de auth, capa de datos (posts/ads) y hooks.
@@ -726,24 +742,32 @@ flowchart TD
 - `/admin` protegida con login funcional (placeholder de panel).
 - `supabase/schema.sql` con tablas y políticas RLS.
 - Documentación y recursos del cliente organizados en `docs/`.
+- **Dependencias instaladas** (`npm install`) y **componentes base de shadcn/ui**
+  (`button`, `input`, `textarea`, `label`, `card`).
+- **Compilación y arranque verificados** (`npm run build` y `npm run dev` OK).
+- **Supabase operativo y verificado** vía REST: tablas `posts`/`ads` accesibles,
+  **lectura pública OK** y **escritura sin sesión bloqueada por RLS** (error 42501).
+  Cuenta del cliente creada y claves cargadas en `.env.local`.
+- **Pantalla Inicio** (RF-09/10/11): `Destacados` (últimas publicaciones desde la
+  BD), `ZonaPublicidad` (lee la tabla `ads` con `useAds`) y `QrWhatsApp` (QR real).
+- **Pantalla Actualidad** (RF-03): feed de `PostCard` con `YouTubeEmbed`, vía `usePosts`.
+- **Navbar** con el logo horizontal; **RadioBar** con nombre "Eje Presse Radio",
+  indicador **LIVE** (rojo, titilante) y eslogan; corrección del footer fijo.
+- Assets del cliente integrados en `public/` y *seeds* (`seed_ads.sql`, `seed_posts.sql`).
 
 ### ⏳ Pendiente
 
-1. `npm install` y verificación de compilación/arranque (si aún no se hizo).
-2. Inicializar **Supabase**: proyecto, cuenta del cliente y ejecución del `schema.sql`.
-3. Agregar componentes **shadcn/ui** base (button, input, card, textarea…).
-4. Implementar **pantalla por pantalla**:
-   - **Inicio:** Destacados (RF-11), Zona de publicidad (RF-09), QR de WhatsApp (RF-10).
-   - **Actualidad:** lista real de `PostCard` con `YouTubeEmbed` (RF-03).
+1. Implementar las pantallas restantes:
    - **Quiénes somos:** empresa + contacto (RF-13).
    - **Admin:** `PostForm` (publicar por enlace + vista previa) y `PostList`
-     (editar/eliminar) (RF-05, RF-08).
-5. Cargar valores reales en `config/site.ts` (TuneIn, WhatsApp, redes, contacto).
-6. Integrar los recursos gráficos del cliente (logo, QR, publicidad).
-7. SEO (RNF-07), accesibilidad AA (RNF-05) y verificación responsive en
+     (editar/eliminar) (RF-05, RF-08), y probar el login real del cliente.
+2. Completar valores reales en `config/site.ts` (URL de TuneIn, enlace del canal de
+   WhatsApp, redes, contacto). El nombre y los assets ya están.
+3. Reemplazar las publicaciones de ejemplo (`seed_posts.sql`) por las del cliente.
+4. SEO (RNF-07), accesibilidad AA (RNF-05) y verificación responsive en
    dispositivos reales.
-8. Despliegue en Vercel/Netlify.
+5. Despliegue en Vercel/Netlify.
 
 ---
 
-<p align="center"><sub>EjePresse Radio · Manual Técnico v1.1 · 23-06-2026</sub></p>
+<p align="center"><sub>EjePresse Radio · Manual Técnico v1.3 · 23-06-2026</sub></p>

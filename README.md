@@ -34,10 +34,11 @@ VITE_SUPABASE_URL=...
 VITE_SUPABASE_ANON_KEY=...
 ```
 
-Componentes de shadcn/ui (cuando se necesiten):
+Componentes base de shadcn/ui ya incluidos (`button`, `input`, `card`, `textarea`,
+`label`). Para agregar más:
 
 ```bash
-npx shadcn@latest add button input card textarea label
+npx shadcn@latest add dialog dropdown-menu
 ```
 
 ## Base de datos
