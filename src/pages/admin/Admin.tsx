@@ -6,6 +6,7 @@ import { LoginForm } from '@/components/admin/LoginForm';
 import { PostForm } from '@/components/admin/PostForm';
 import { PostList } from '@/components/admin/PostList';
 import { RadioBar } from '@/components/layout/RadioBar';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { Button } from '@/components/ui/button';
 
 /**
@@ -34,9 +35,12 @@ export default function Admin() {
       <header className="border-b bg-background">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
           <span className="text-sm font-semibold">Admin — Publicaciones</span>
-          <Button variant="ghost" size="sm" onClick={() => void signOut()}>
-            Cerrar sesión
-          </Button>
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <Button variant="ghost" size="sm" onClick={() => void signOut()}>
+              Cerrar sesión
+            </Button>
+          </div>
         </div>
       </header>
 

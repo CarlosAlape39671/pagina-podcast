@@ -22,15 +22,21 @@ export const siteConfig = {
 
   radio: {
     stationName: 'Eje Presse Radio',
-    slogan: 'La radio différente',
-    // URL del reproductor embebido de TuneIn (Share → Embed en TuneIn).
-    tuneInEmbedUrl: 'https://tunein.com/embed/player/sXXXXXXX/',
+    slogan: 'La radio diferente · La radio différente',
+    // Stream directo de la estación (suena en segundo plano con <audio>).
+    // Estación TuneIn s224307. Si dejara de sonar, reobtén la URL actual con:
+    //   https://opml.radiotime.com/Tune.ashx?id=s224307
+    // Alternativa: https://radio35.virtualtronics.com/proxy/manizalesnews?mp=/stream
+    streamUrl: 'https://sonicpanel.globalstream.pro/8250/stream',
+    // Widget embebido de TuneIn (alternativa visible, no usada por defecto).
+    tuneInEmbedUrl: 'https://tunein.com/embed/player/s224307/',
   },
 
   whatsapp: {
     label: 'Únete a nuestro canal',
     description: 'Escanea el QR y recibe las noticias más importantes directo en tu celular.',
-    channelUrl: 'https://whatsapp.com/channel/XXXXXXXXXXXXXXXXXX',
+    // Canal "KF News. Noticias del Eje" (mismo destino que el QR).
+    channelUrl: 'https://whatsapp.com/channel/0029Vb3MQZZJP214uNvMeo0C',
   },
 
   social: {

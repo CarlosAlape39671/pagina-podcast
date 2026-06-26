@@ -10,7 +10,7 @@
 | | |
 |---|---|
 | **Sitio** | Noticiero web con radio en vivo y actualidad (EjePresse Radio) |
-| **Versión del documento** | 1.2 |
+| **Versión del documento** | 1.3 |
 | **Fecha** | 23 de junio de 2026 |
 | **Dirigido a** | Visitantes y administrador (cliente) |
 
@@ -67,6 +67,8 @@ El sitio tiene **tres apartados**, siempre accesibles desde el menú superior:
 - En **celular** el menú se abre con el botón **☰** (hamburguesa).
 - La **barra de radio** permanece **fija en la parte inferior** mientras navegas,
   para que no se corte la emisión.
+- Con el botón **🌙 / ☀️** del menú cambias entre **modo claro y oscuro**; tu
+  elección se recuerda para la próxima visita.
 
 El sitio es **responsive**: se adapta a celular, tablet y computador sin
 desplazamiento horizontal.
@@ -165,16 +167,17 @@ equipo compartido.
 |---|---|
 | Navegación entre los 3 apartados | ✅ Disponible |
 | Menú responsive (hamburguesa en móvil) | ✅ Disponible |
-| Barra de radio fija con play / LIVE | ✅ Disponible (falta enlazar la señal real de TuneIn) |
+| Radio en vivo (suena en segundo plano) | ✅ Disponible |
 | Inicio de sesión en `/admin` | ✅ Funcional (Supabase configurado y verificado) |
 | Reproductor de video diferido (16:9) | ✅ Disponible |
 | **Inicio**: destacados, publicidad y QR de WhatsApp | ✅ Disponible |
 | **Actualidad**: lista de publicaciones en video | ✅ Disponible |
 | Publicar / editar / eliminar noticias (admin) | ✅ Disponible (probado en vivo) |
 | Contenido de **Quiénes somos** | ✅ Disponible |
+| Modo claro / oscuro | ✅ Disponible |
 
-Las **4 pantallas del MVP** ya están operativas. Lo que resta es pulido:
-enlazar la señal real de TuneIn y el canal de WhatsApp, y el despliegue.
+Las **4 pantallas del MVP** ya están operativas, con radio en vivo, modo oscuro y
+el canal de WhatsApp. Lo que resta es pulido (redes/contacto reales) y el despliegue.
 
 ---
 
@@ -201,4 +204,4 @@ No. La barra de radio es fija y la emisión continúa mientras navegas.
 
 ---
 
-<p align="center"><sub>EjePresse Radio · Manual de Usuario v1.2 · 23-06-2026</sub></p>
+<p align="center"><sub>EjePresse Radio · Manual de Usuario v1.3 · 23-06-2026</sub></p>

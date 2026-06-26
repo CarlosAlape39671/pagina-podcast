@@ -10,7 +10,7 @@
 | | |
 |---|---|
 | **Proyecto** | Noticiero web · Radio en vivo y actualidad (EjePresse Radio) |
-| **Versión del documento** | 1.4 |
+| **Versión del documento** | 1.5 |
 | **Fecha** | 23 de junio de 2026 |
 | **Estado del proyecto** | Scaffold (estructura base + infraestructura lista; pantallas en desarrollo) |
 | **Fuente de verdad** | [`Requisitos_Plataforma_Podcast.md`](Requisitos_Plataforma_Podcast.md) |
@@ -102,7 +102,7 @@ terceros; el sitio no debe romperse si alguno no responde.
 | Enrutado | React Router | ^6.26 |
 | Backend (BaaS) | @supabase/supabase-js | ^2.45 |
 | Iconos | lucide-react | ^0.441 |
-| Radio en vivo | Embed de TuneIn | — |
+| Radio en vivo | Stream directo de la estación en `<audio>` (hallado vía TuneIn) | — |
 | Video | Embed de YouTube (facade tipo *lite-youtube*) | — |
 
 ---
@@ -304,9 +304,18 @@ miniatura + botón play y **solo carga el `<iframe>` al hacer clic** (RNF-02).
 Proporción 16:9, responsive (RF-04).
 
 ### `components/layout/RadioBar.tsx`
-Barra de radio fija (RF-01/RF-02). El `<iframe>` de TuneIn **no se inyecta hasta
-el primer clic** del usuario, para no penalizar la carga inicial. Lee la estación
-y la URL del embed desde `config/site.ts`.
+Barra de radio fija (RF-01/RF-02). Reproduce la señal en vivo con un **`<audio>`
+oculto** que apunta al **stream directo de la estación** (`config/site.ts` →
+`radio.streamUrl`); el `<audio>` usa `preload="none"`, así no descarga nada hasta
+el primer clic. La barra es nuestra propia UI (nombre, **LIVE**, eslogan) y el
+botón alterna play/pausa.
+
+> **Aclaración sobre TuneIn:** TuneIn es solo un *directorio* que lista la
+> estación; no aloja el audio. Usamos su API una vez para **descubrir** la URL del
+> stream (`Tune.ashx?id=s224307`), pero el sitio se conecta **directo** al servidor
+> de la emisora. Es la misma transmisión en vivo, sin pasar por el reproductor de
+> TuneIn. (Esto sustituye el enfoque de *embed* del documento de requisitos por un
+> reproductor propio, a pedido del cliente.)
 
 ### `config/site.ts`
 Punto único de configuración: nombre, datos de la radio (TuneIn), canal de
@@ -337,6 +346,11 @@ sesión muestra el panel (`PostForm` + `PostList`).
   (`--primary`, `--background`, `--border`, …). Color de marca: azul
   (`--primary: 221 83% 53%`).
 - **shadcn/ui** estilo *default*, base *slate*, `cssVariables: true`.
+- **Modo claro/oscuro**: `darkMode: ['class']` en Tailwind y una paleta `.dark` en
+  `index.css`. El tema lo maneja `ThemeProvider` (context) + `useTheme`, con el
+  botón `ThemeToggle` (Navbar y panel admin); se persiste en `localStorage` y un
+  script en `index.html` lo aplica antes de pintar para evitar parpadeo (respeta
+  `prefers-color-scheme`).
 - Helper **`cn()`** (`clsx` + `tailwind-merge`) para componer clases.
 - **Mobile-first** (RNF-03): móvil ~390px, tablet ~768px, escritorio ~1280px;
   sin scroll horizontal; objetivos táctiles ≥ 44px.
@@ -761,13 +775,17 @@ flowchart TD
   refresco de la lista. **Verificado de punta a punta** con publicaciones reales
   del cliente (la escritura autenticada pasa la RLS; sin sesión queda bloqueada).
 - Corrección de fechas: se formatean en **UTC** para no correrse un día (UTC-5).
+- **Radio en segundo plano**: reproductor propio con `<audio>` y el stream directo
+  de la estación; TuneIn (estación real `s224307`) y canal de WhatsApp reales cargados.
+- **Modo claro/oscuro** con persistencia y toggle en el Navbar y el panel admin.
+- **Favicon** (logo circular de EjePresse sin fondo) y título de la pestaña.
 
 > Con esto, **las 4 pantallas del MVP están completas y validadas en vivo**.
 
 ### ⏳ Pendiente (pulido)
 
-1. Completar valores reales en `config/site.ts` (URL de TuneIn, enlace del canal de
-   WhatsApp, redes, contacto). El nombre y los assets ya están.
+1. Completar en `config/site.ts` las **redes sociales** y los **datos de contacto**
+   reales (TuneIn, WhatsApp, nombre y assets ya están).
 2. Eliminar las publicaciones de ejemplo (`seed_posts.sql`) cuando el contenido
    real esté cargado.
 3. SEO (RNF-07), accesibilidad AA (RNF-05) y verificación responsive en
@@ -776,4 +794,4 @@ flowchart TD
 
 ---
 
-<p align="center"><sub>EjePresse Radio · Manual Técnico v1.4 · 23-06-2026</sub></p>
+<p align="center"><sub>EjePresse Radio · Manual Técnico v1.5 · 23-06-2026</sub></p>

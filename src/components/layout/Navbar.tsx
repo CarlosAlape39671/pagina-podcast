@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
+import { ThemeToggle } from './ThemeToggle';
 
 const links = [
   { to: '/', label: 'Inicio', end: true },
@@ -32,25 +33,29 @@ export function Navbar() {
           <img src={siteConfig.assets.logo} alt={siteConfig.name} className="h-8 w-auto" />
         </NavLink>
 
-        {/* Desktop / tablet */}
-        <div className="hidden items-center gap-1 sm:flex">
-          {links.map((l) => (
-            <NavLink key={l.to} to={l.to} end={l.end} className={linkClass}>
-              {l.label}
-            </NavLink>
-          ))}
-        </div>
+        <div className="flex items-center gap-1">
+          {/* Desktop / tablet */}
+          <div className="hidden items-center gap-1 sm:flex">
+            {links.map((l) => (
+              <NavLink key={l.to} to={l.to} end={l.end} className={linkClass}>
+                {l.label}
+              </NavLink>
+            ))}
+          </div>
 
-        {/* Móvil: botón hamburguesa */}
-        <button
-          type="button"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground sm:hidden"
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+          <ThemeToggle />
+
+          {/* Móvil: botón hamburguesa */}
+          <button
+            type="button"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground sm:hidden"
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </nav>
 
       {/* Menú desplegable móvil */}
