@@ -10,7 +10,7 @@
 | | |
 |---|---|
 | **Proyecto** | Noticiero web · Radio en vivo y actualidad (EjePresse Radio) |
-| **Versión del documento** | 1.3 |
+| **Versión del documento** | 1.4 |
 | **Fecha** | 23 de junio de 2026 |
 | **Estado del proyecto** | Scaffold (estructura base + infraestructura lista; pantallas en desarrollo) |
 | **Fuente de verdad** | [`Requisitos_Plataforma_Podcast.md`](Requisitos_Plataforma_Podcast.md) |
@@ -733,13 +733,13 @@ flowchart TD
 
 ## 15. Estado actual y pendientes
 
-### ✅ Hecho (scaffold + puesta a punto + Inicio y Actualidad)
+### ✅ Hecho (MVP completo · las 4 pantallas)
 
 - Proyecto Vite + TS + Tailwind + shadcn/ui configurado y enrutado.
 - Cliente de Supabase, contexto de auth, capa de datos (posts/ads) y hooks.
 - Helper de YouTube y componente `YouTubeEmbed` (facade) funcionales.
 - Layout: Navbar (responsive con hamburguesa), Footer, RadioBar (TuneIn diferido).
-- `/admin` protegida con login funcional (placeholder de panel).
+- `/admin` (ruta oculta) protegida por login de Supabase.
 - `supabase/schema.sql` con tablas y políticas RLS.
 - Documentación y recursos del cliente organizados en `docs/`.
 - **Dependencias instaladas** (`npm install`) y **componentes base de shadcn/ui**
@@ -754,20 +754,26 @@ flowchart TD
 - **Navbar** con el logo horizontal; **RadioBar** con nombre "Eje Presse Radio",
   indicador **LIVE** (rojo, titilante) y eslogan; corrección del footer fijo.
 - Assets del cliente integrados en `public/` y *seeds* (`seed_ads.sql`, `seed_posts.sql`).
+- **Pantalla Quiénes somos** (RF-13): resumen de la empresa (config `about`) y
+  contacto (teléfono, correo, dirección).
+- **Pantalla Admin** (RF-05/06/08): login real con Supabase, `PostForm` (publicar
+  por enlace + vista previa + fecha opcional), `PostList` (editar/eliminar) con
+  refresco de la lista. **Verificado de punta a punta** con publicaciones reales
+  del cliente (la escritura autenticada pasa la RLS; sin sesión queda bloqueada).
+- Corrección de fechas: se formatean en **UTC** para no correrse un día (UTC-5).
 
-### ⏳ Pendiente
+> Con esto, **las 4 pantallas del MVP están completas y validadas en vivo**.
 
-1. Implementar las pantallas restantes:
-   - **Quiénes somos:** empresa + contacto (RF-13).
-   - **Admin:** `PostForm` (publicar por enlace + vista previa) y `PostList`
-     (editar/eliminar) (RF-05, RF-08), y probar el login real del cliente.
-2. Completar valores reales en `config/site.ts` (URL de TuneIn, enlace del canal de
+### ⏳ Pendiente (pulido)
+
+1. Completar valores reales en `config/site.ts` (URL de TuneIn, enlace del canal de
    WhatsApp, redes, contacto). El nombre y los assets ya están.
-3. Reemplazar las publicaciones de ejemplo (`seed_posts.sql`) por las del cliente.
-4. SEO (RNF-07), accesibilidad AA (RNF-05) y verificación responsive en
+2. Eliminar las publicaciones de ejemplo (`seed_posts.sql`) cuando el contenido
+   real esté cargado.
+3. SEO (RNF-07), accesibilidad AA (RNF-05) y verificación responsive en
    dispositivos reales.
-5. Despliegue en Vercel/Netlify.
+4. Despliegue en Vercel/Netlify.
 
 ---
 
-<p align="center"><sub>EjePresse Radio · Manual Técnico v1.3 · 23-06-2026</sub></p>
+<p align="center"><sub>EjePresse Radio · Manual Técnico v1.4 · 23-06-2026</sub></p>

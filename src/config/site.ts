@@ -11,6 +11,15 @@ export const siteConfig = {
     whatsappQr: '/qr-canal-whatsapp.jpg',
   },
 
+  // Resumen de la empresa para "Quiénes somos" (editable por el cliente).
+  about: {
+    title: 'El noticiero de tu comunidad',
+    paragraphs: [
+      'Somos un medio de comunicación independiente dedicado a informar con veracidad y responsabilidad. Fundado en 2010, combinamos la inmediatez del noticiero digital con la cercanía de la radio en vivo, ofreciendo cobertura las 24 horas.',
+      'Nuestro equipo de periodistas comprometidos trabaja para traerte política, economía, cultura, deporte y sociedad, siempre con rigor editorial.',
+    ],
+  },
+
   radio: {
     stationName: 'Eje Presse Radio',
     slogan: 'La radio différente',

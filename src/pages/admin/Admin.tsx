@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { usePosts } from '@/hooks/usePosts';
+import type { Post } from '@/types';
 import { LoginForm } from '@/components/admin/LoginForm';
 import { PostForm } from '@/components/admin/PostForm';
 import { PostList } from '@/components/admin/PostList';
+import { RadioBar } from '@/components/layout/RadioBar';
+import { Button } from '@/components/ui/button';
 
 /**
  * Ruta oculta /admin protegida por login (RF-06).
@@ -9,9 +14,15 @@ import { PostList } from '@/components/admin/PostList';
  */
 export default function Admin() {
   const { session, loading, signOut } = useAuth();
+  const { posts, loading: postsLoading, error, refresh } = usePosts();
+  const [editing, setEditing] = useState<Post | null>(null);
 
   if (loading) {
-    return <div className="grid min-h-screen place-items-center text-sm text-muted-foreground">Cargando…</div>;
+    return (
+      <div className="grid min-h-screen place-items-center text-sm text-muted-foreground">
+        Cargando…
+      </div>
+    );
   }
 
   if (!session) {
@@ -19,23 +30,38 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-muted/40">
+    <div className="min-h-screen bg-muted/40 pb-16">
       <header className="border-b bg-background">
-        <div className="container flex h-14 items-center justify-between">
+        <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
           <span className="text-sm font-semibold">Admin — Publicaciones</span>
-          <button
-            type="button"
-            onClick={() => void signOut()}
-            className="text-sm text-muted-foreground hover:text-foreground"
-          >
+          <Button variant="ghost" size="sm" onClick={() => void signOut()}>
             Cerrar sesión
-          </button>
+          </Button>
         </div>
       </header>
-      <main className="container space-y-6 py-6">
-        <PostForm />
-        <PostList />
+
+      <main className="mx-auto max-w-3xl space-y-8 px-4 py-6">
+        <PostForm
+          editing={editing}
+          onSaved={() => {
+            setEditing(null);
+            void refresh();
+          }}
+          onCancel={() => setEditing(null)}
+        />
+        <PostList
+          posts={posts}
+          loading={postsLoading}
+          error={error}
+          onEdit={(p) => {
+            setEditing(p);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onDeleted={() => void refresh()}
+        />
       </main>
+
+      <RadioBar />
     </div>
   );
 }

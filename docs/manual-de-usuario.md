@@ -10,7 +10,7 @@
 | | |
 |---|---|
 | **Sitio** | Noticiero web con radio en vivo y actualidad (EjePresse Radio) |
-| **Versión del documento** | 1.1 |
+| **Versión del documento** | 1.2 |
 | **Fecha** | 23 de junio de 2026 |
 | **Dirigido a** | Visitantes y administrador (cliente) |
 
@@ -170,11 +170,11 @@ equipo compartido.
 | Reproductor de video diferido (16:9) | ✅ Disponible |
 | **Inicio**: destacados, publicidad y QR de WhatsApp | ✅ Disponible |
 | **Actualidad**: lista de publicaciones en video | ✅ Disponible |
-| Publicar / editar / eliminar noticias (admin) | 🛠️ En desarrollo |
-| Contenido de **Quiénes somos** | 🛠️ En desarrollo |
+| Publicar / editar / eliminar noticias (admin) | ✅ Disponible (probado en vivo) |
+| Contenido de **Quiénes somos** | ✅ Disponible |
 
-A medida que avancemos pantalla por pantalla, estas funciones quedarán
-completamente operativas.
+Las **4 pantallas del MVP** ya están operativas. Lo que resta es pulido:
+enlazar la señal real de TuneIn y el canal de WhatsApp, y el despliegue.
 
 ---
 
@@ -201,4 +201,4 @@ No. La barra de radio es fija y la emisión continúa mientras navegas.
 
 ---
 
-<p align="center"><sub>EjePresse Radio · Manual de Usuario v1.1 · 23-06-2026</sub></p>
+<p align="center"><sub>EjePresse Radio · Manual de Usuario v1.2 · 23-06-2026</sub></p>
