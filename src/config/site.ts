@@ -13,10 +13,9 @@ export const siteConfig = {
 
   // Resumen de la empresa para "Quiénes somos" (editable por el cliente).
   about: {
-    title: 'El noticiero de tu comunidad',
+    title: 'Quiénes somos',
     paragraphs: [
-      'Somos un medio de comunicación independiente dedicado a informar con veracidad y responsabilidad. Fundado en 2010, combinamos la inmediatez del noticiero digital con la cercanía de la radio en vivo, ofreciendo cobertura las 24 horas.',
-      'Nuestro equipo de periodistas comprometidos trabaja para traerte política, economía, cultura, deporte y sociedad, siempre con rigor editorial.',
+      'Somos un medio alternativo independiente del Eje Cafetero que difunde información objetiva e imparcial de Caldas, Risaralda y Quindío.',
     ],
   },
 
@@ -40,17 +39,16 @@ export const siteConfig = {
   },
 
   social: {
-    facebook: '#',
-    instagram: '#',
-    tiktok: '#',
-    youtube: '#',
-    x: '#',
+    facebook: 'https://www.facebook.com/EjePresse/',
+    instagram: 'https://www.instagram.com/ejepresse/',
+    youtube: 'https://www.youtube.com/@EjePresseRadio',
+    x: 'https://x.com/Eje_Presse',
+    spotify: 'https://open.spotify.com/show/63ARMEUrf2GgUOEbe4yt2s?si=0faa47a7991a4d57',
   },
 
   contact: {
-    phone: '+1 (555) 234-5678',
-    email: 'redaccion@noticiero.com',
-    address: 'Av. Principal 400, Ciudad Capital',
+    phone: '+57 301 568 1633',
+    email: 'ejepresse@ejepresse-radio.com',
   },
 } as const;
 

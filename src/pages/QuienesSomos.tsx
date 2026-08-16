@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 
 /** Quiénes somos: resumen de la empresa + contacto (RF-13). */
@@ -43,12 +43,6 @@ export default function QuienesSomos() {
               </span>
               <span className="group-hover:text-primary">{contact.email}</span>
             </a>
-          </li>
-          <li className="flex items-center gap-3">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
-              <MapPin className="h-4 w-4" />
-            </span>
-            <span>{contact.address}</span>
           </li>
         </ul>
       </section>

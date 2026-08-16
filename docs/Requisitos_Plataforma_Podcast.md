@@ -4,9 +4,9 @@
 
 *Especificación de requisitos y stack tecnológico*
 
-Versión 3.0 --- Borrador
+Versión 3.1 --- Implementación finalizada
 
-Fecha: 23 de junio de 2026
+Fecha: 15 de agosto de 2026
 
 Herramientas: React · Tailwind · Supabase · Claude Code
 
@@ -35,8 +35,8 @@ Inicio reúne lo más destacado, la zona de publicidad, el bloque con QR
 del canal de WhatsApp, el reproductor de radio en vivo (TuneIn) y el
 footer. Actualidad lista las publicaciones, cada una con su video de
 YouTube incrustado, título, descripción y fecha. Quiénes somos presenta
-el resumen de la empresa del cliente y su información laboral y de
-contacto. Todo el sitio es responsive en móvil, tablet y escritorio.
+el resumen de la empresa del cliente, teléfono y correo de contacto.
+Todo el sitio es responsive en móvil, tablet y escritorio.
 
 **Publicación de contenido:** solo el cliente puede publicar. Inicia
 sesión (con Supabase) y, pegando un enlace de YouTube, crea una
@@ -179,8 +179,8 @@ de implementación (Alta = MVP).
                            del cliente, su información laboral y    
                            datos de contacto (absorbe el contacto). 
 
-  RF-14    Redes sociales  Enlaces a Facebook, Instagram, TikTok,   Media
-                           YouTube y otras redes del proyecto.      
+  RF-14    Redes sociales  Enlaces a Facebook, Instagram, YouTube,   Media
+                           X (Twitter) y Spotify del proyecto.      
 
   RF-15    Navegación      Menú con los 3 apartados, adaptable:     Alta
            responsive      escritorio completo, compacto en tablet  
@@ -415,8 +415,8 @@ Estructura final acordada con el cliente:
 6.  Actualidad: lista de publicaciones con video de YouTube incrustado,
     título, descripción y fecha.
 
-7.  Quiénes somos: resumen de la empresa, información laboral y
-    contacto.
+7.  Quiénes somos: resumen de la empresa, teléfono de contacto y correo
+    electrónico (sin dirección física).
 
 **Ruta oculta para el cliente:** una página de administración (p. ej.
 /admin) protegida por login de Supabase, accesible desde cualquier
